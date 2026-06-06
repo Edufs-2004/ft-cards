@@ -1,0 +1,14 @@
+[
+  {
+    "id": "p1",
+    "nombre": "Isagi Yoichi",
+    "stats": { "tiro": 85, "regate": 75, "vision": 95, "pase": 80, "defensa": 60, "velocidad": 78 },
+    "energiaMaxima": 200
+  },
+  {
+    "id": "p2",
+    "nombre": "Aiku Oliver",
+    "stats": { "tiro": 60, "regate": 65, "vision": 85, "pase": 70, "defensa": 95, "velocidad": 75 },
+    "energiaMaxima": 200
+  }
+]
