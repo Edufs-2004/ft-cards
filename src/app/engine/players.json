@@ -2,13 +2,190 @@
   {
     "id": "p1",
     "nombre": "Isagi Yoichi",
-    "stats": { "tiro": 85, "regate": 75, "vision": 95, "pase": 80, "defensa": 60, "velocidad": 78 },
-    "energiaMaxima": 200
+    "edicion": "(Equipo Z)",
+    "posicion": "Delantero",
+    "rareza": "Epico",
+    "stats": { "tiro": 86, "regate": 70, "vision": 93, "pase": 80, "defensa": 60, "velocidad": 72 },
+    "energiaMaxima": 160
   },
   {
     "id": "p2",
-    "nombre": "Aiku Oliver",
-    "stats": { "tiro": 60, "regate": 65, "vision": 85, "pase": 70, "defensa": 95, "velocidad": 75 },
+    "nombre": "Meguru Bachira",
+    "edicion": "(Equipo Z)",
+    "posicion": "Mediocampo",
+    "rareza": "Epico",
+    "stats": { "tiro": 85, "regate": 94, "vision": 80, "pase": 82, "defensa": 55, "velocidad": 75 },
+    "energiaMaxima": 150
+  },
+  {
+    "id": "p3",
+    "nombre": "Kensuke Kunigami",
+    "edicion": "(Equipo Z)",
+    "posicion": "Delantero",
+    "rareza": "Epico",
+    "stats": { "tiro": 92, "regate": 72, "vision": 70, "pase": 70, "defensa": 68, "velocidad": 77 },
+    "energiaMaxima": 180
+  },
+  {
+    "id": "p4",
+    "nombre": "Hyoma Chigiri",
+    "edicion": "(Equipo Z)",
+    "posicion": "Delantero",
+    "rareza": "Raro",
+    "stats": { "tiro": 85, "regate": 71, "vision": 66, "pase": 65, "defensa": 63, "velocidad": 88 },
+    "energiaMaxima": 120
+  },
+  {
+    "id": "p5",
+    "nombre": "Okuhito Lemon",
+    "edicion": "(Equipo Z)",
+    "posicion": "Portero",
+    "rareza": "Normal",
+    "stats": { "tiro": 50, "regate": 55, "vision": 55, "pase": 58, "defensa": 67, "velocidad": 60 },
+    "energiaMaxima": 100
+  },
+  {
+    "id": "p6",
+    "nombre": "Asahi Naruhaya",
+    "edicion": "(Equipo Z)",
+    "posicion": "Mediocampo",
+    "rareza": "Normal",
+    "stats": { "tiro": 51, "regate": 60, "vision": 63, "pase": 58, "defensa": 50, "velocidad": 55 },
+    "energiaMaxima": 105
+  },
+  {
+    "id": "p7",
+    "nombre": "Jingo Raichi",
+    "edicion": "(Equipo Z)",
+    "posicion": "Defensa",
+    "rareza": "Raro",
+    "stats": { "tiro": 55, "regate": 52, "vision": 55, "pase": 58, "defensa": 78, "velocidad": 68 },
+    "energiaMaxima": 170
+  },
+  {
+    "id": "p8",
+    "nombre": "Gurimu Igarashi",
+    "edicion": "(Equipo Z)",
+    "posicion": "Defensa",
+    "rareza": "Normal",
+    "stats": { "tiro": 52, "regate": 50, "vision": 55, "pase": 58, "defensa": 76, "velocidad": 62 },
+    "energiaMaxima": 130
+  },
+  {
+    "id": "p9",
+    "nombre": "Watary Kuon",
+    "edicion": "(Equipo Z)",
+    "posicion": "Defensa",
+    "rareza": "Normal",
+    "stats": { "tiro": 60, "regate": 51, "vision": 53, "pase": 50, "defensa": 61, "velocidad": 57 },
+    "energiaMaxima": 110
+  },
+  {
+    "id": "p10",
+    "nombre": "Gin Gagamaru",
+    "edicion": "(Equipo Z)",
+    "posicion": "Delantero",
+    "rareza": "Raro",
+    "stats": { "tiro": 71, "regate": 60, "vision": 65, "pase": 51, "defensa": 69, "velocidad": 67 },
+    "energiaMaxima": 160
+  },
+  {
+    "id": "p11",
+    "nombre": "Yudai Inamura",
+    "edicion": "(Equipo Z)",
+    "posicion": "Delantero",
+    "rareza": "Normal",
+    "stats": { "tiro": 55, "regate": 55, "vision": 55, "pase": 55, "defensa": 55, "velocidad": 55 },
+    "energiaMaxima": 100
+  },
+  {
+    "id": "p12",
+    "nombre": "Itoshi Rin",
+    "edicion": "(Rivales)",
+    "posicion": "Delantero",
+    "rareza": "Legendario",
+    "stats": { "tiro": 94, "regate": 90, "vision": 83, "pase": 79, "defensa": 79, "velocidad": 85 },
     "energiaMaxima": 200
+  },
+  {
+    "id": "p13",
+    "nombre": "Seishiro Nagi",
+    "edicion": "(Rivales)",
+    "posicion": "Delantero",
+    "rareza": "Epico",
+    "stats": { "tiro": 89, "regate": 94, "vision": 78, "pase": 75, "defensa": 78, "velocidad": 79 },
+    "energiaMaxima": 180
+  },
+  {
+    "id": "p14",
+    "nombre": "Mikage Reo",
+    "edicion": "(Rivales)",
+    "posicion": "Mediocampo",
+    "rareza": "Raro",
+    "stats": { "tiro": 71, "regate": 72, "vision": 84, "pase": 88, "defensa": 75, "velocidad": 69 },
+    "energiaMaxima": 150
+  },
+  {
+    "id": "p15",
+    "nombre": "Ikki Niko",
+    "edicion": "(Rivales)",
+    "posicion": "Defensa",
+    "rareza": "Raro",
+    "stats": { "tiro": 70, "regate": 70, "vision": 91, "pase": 70, "defensa": 77, "velocidad": 67 },
+    "energiaMaxima": 110
+  },
+  {
+    "id": "p16",
+    "nombre": "Shouei Barou",
+    "edicion": "(Rivales)",
+    "posicion": "Delantero",
+    "rareza": "Raro",
+    "stats": { "tiro": 95, "regate": 70, "vision": 65, "pase": 63, "defensa": 70, "velocidad": 70 },
+    "energiaMaxima": 150
+  },
+  {
+    "id": "p17",
+    "nombre": "Keisuke Wanima",
+    "edicion": "(Rivales)",
+    "posicion": "Mediocampo",
+    "rareza": "Normal",
+    "stats": { "tiro": 70, "regate": 55, "vision": 55, "pase": 55, "defensa": 55, "velocidad": 51 },
+    "energiaMaxima": 100
+  },
+  {
+    "id": "p18",
+    "nombre": "Junichi Wanima",
+    "edicion": "(Rivales)",
+    "posicion": "Mediocampo",
+    "rareza": "Normal",
+    "stats": { "tiro": 70, "regate": 55, "vision": 55, "pase": 55, "defensa": 55, "velocidad": 51 },
+    "energiaMaxima": 100
+  },
+  {
+    "id": "p19",
+    "nombre": "Zantetsu Zuguri",
+    "edicion": "(Rivales)",
+    "posicion": "Delantero",
+    "rareza": "Raro",
+    "stats": { "tiro": 71, "regate": 69, "vision": 50, "pase": 54, "defensa": 52, "velocidad": 82 },
+    "energiaMaxima": 120
+  },
+  {
+    "id": "p20",
+    "nombre": "Aoshi Tokimitsu",
+    "edicion": "(Rivales)",
+    "posicion": "Defensa",
+    "rareza": "Normal",
+    "stats": { "tiro": 65, "regate": 50, "vision": 51, "pase": 55, "defensa": 68, "velocidad": 68 },
+    "energiaMaxima": 200
+  },
+  {
+    "id": "p21",
+    "nombre": "blue lock man",
+    "edicion": "(Rivales)",
+    "posicion": "Portero",
+    "rareza": "Normal",
+    "stats": { "tiro": 50, "regate": 50, "vision": 50, "pase": 50, "defensa": 65, "velocidad": 60 },
+    "energiaMaxima": 300
   }
 ]

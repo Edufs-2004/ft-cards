@@ -1,45 +1,55 @@
 import { JugadorPartido, AccionOfensiva, AccionDefensiva } from './types';
 
+// ... (mantén las funciones de fatiga y suerte igual) ...
+
 export function obtenerMultiplicadorFatiga(energiaActual: number, energiaMaxima: number): number {
   const porcentaje = (energiaActual / energiaMaxima) * 100;
   const tramosPerdidos = Math.floor((100 - porcentaje) / 5);
-  const penalizacion = tramosPerdidos > 0 ? tramosPerdidos * 0.02 : 0;
-  return 1 - penalizacion; 
+  return 1 - (tramosPerdidos > 0 ? tramosPerdidos * 0.02 : 0); 
 }
 
 export function generarFactorSuerte(limitado: boolean): number {
-  const min = 0.90;
   const max = limitado ? 1.00 : 1.10;
-  const suerte = Math.random() * (max - min) + min;
-  return Math.round(suerte * 100) / 100; 
+  return Math.round((Math.random() * (max - 0.90) + 0.90) * 100) / 100; 
 }
 
-function statConFatiga(valorBase: number, fatiga: number): number {
-  return valorBase * fatiga;
+// NUEVA FUNCIÓN: Factor Distancia
+export function obtenerFactorDistancia(distancia: number): number {
+  if (distancia <= 1) return 1;
+  if (distancia === 2) return 0.95;
+  if (distancia === 3) return 0.90;
+  if (distancia === 4) return 0.80;
+  if (distancia === 5) return 0.65;
+  return 0.50; // 6 o más casillas
 }
 
-export function calcularPoderOfensivo(jugador: JugadorPartido, accion: AccionOfensiva, suerteLimitada: boolean): number {
+// ACTUALIZACIÓN: Recibe la distancia como parámetro opcional (por defecto 1)
+export function calcularPoderDetalladoOfensivo(jugador: JugadorPartido, accion: AccionOfensiva, suerteLimitada: boolean, distancia: number = 1) {
+  const fatiga = obtenerMultiplicadorFatiga(jugador.energiaActual, jugador.energiaMaxima);
+  const suerte = generarFactorSuerte(suerteLimitada);
+  const factorDistancia = obtenerFactorDistancia(distancia);
+  const stats = jugador.stats;
+
+  let base = 0;
+  if (accion === 'Regate') base = (stats.regate * 0.70 + stats.velocidad * 0.30) * fatiga;
+  if (accion === 'Pase') base = (stats.pase * 0.70 + stats.vision * 0.30) * fatiga;
+  if (accion === 'Tiro') base = (stats.tiro * 0.85 + stats.vision * 0.15) * fatiga;
+
+  // Se aplica la fórmula exacta: ((Base) * Suerte) * Distancia
+  const poderTotal = Math.round((base * suerte) * factorDistancia);
+
+  return { total: poderTotal, base: Math.round(base), suerte, factorDistancia };
+}
+
+export function calcularPoderDetalladoDefensivo(jugador: JugadorPartido, accion: AccionDefensiva, suerteLimitada: boolean) {
   const fatiga = obtenerMultiplicadorFatiga(jugador.energiaActual, jugador.energiaMaxima);
   const suerte = generarFactorSuerte(suerteLimitada);
   const stats = jugador.stats;
 
-  let poderBase = 0;
-  if (accion === 'Regate') poderBase = statConFatiga(stats.regate, fatiga) * 0.70 + statConFatiga(stats.velocidad, fatiga) * 0.30;
-  if (accion === 'Pase') poderBase = statConFatiga(stats.pase, fatiga) * 0.70 + statConFatiga(stats.vision, fatiga) * 0.30;
-  if (accion === 'Tiro') poderBase = statConFatiga(stats.tiro, fatiga) * 0.85 + statConFatiga(stats.vision, fatiga) * 0.15;
+  let base = 0;
+  if (accion === 'Entrada') base = (stats.defensa * 0.65 + stats.velocidad * 0.35) * fatiga;
+  if (accion === 'Intercepcion') base = (stats.defensa * 0.60 + stats.vision * 0.40) * fatiga;
+  if (accion === 'Bloqueo') base = (stats.defensa * 0.90 + stats.vision * 0.10) * fatiga;
 
-  return Math.round(poderBase * suerte);
-}
-
-export function calcularPoderDefensivo(jugador: JugadorPartido, accion: AccionDefensiva, suerteLimitada: boolean): number {
-  const fatiga = obtenerMultiplicadorFatiga(jugador.energiaActual, jugador.energiaMaxima);
-  const suerte = generarFactorSuerte(suerteLimitada);
-  const stats = jugador.stats;
-
-  let poderBase = 0;
-  if (accion === 'Entrada') poderBase = statConFatiga(stats.defensa, fatiga) * 0.65 + statConFatiga(stats.velocidad, fatiga) * 0.35;
-  if (accion === 'Intercepcion') poderBase = statConFatiga(stats.defensa, fatiga) * 0.60 + statConFatiga(stats.vision, fatiga) * 0.40;
-  if (accion === 'Bloqueo') poderBase = statConFatiga(stats.defensa, fatiga) * 0.90 + statConFatiga(stats.vision, fatiga) * 0.10;
-
-  return Math.round(poderBase * suerte);
+  return { total: Math.round(base * suerte), base: Math.round(base), suerte, factorDistancia: 1 };
 }

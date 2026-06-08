@@ -1,69 +1,49 @@
 import { JugadorPartido, AccionOfensiva, AccionDefensiva, ResultadoDuelo } from './types';
-import { calcularPoderOfensivo, calcularPoderDefensivo } from './mathEngine';
+import { calcularPoderDetalladoOfensivo, calcularPoderDetalladoDefensivo } from './mathEngine';
 
-function evaluarVentajaTactica(accOfensiva: AccionOfensiva, accDefensiva: AccionDefensiva) {
-  let atacanteLimitado = false;
-  let defensorLimitado = false;
+// ... (evaluarVentajaTactica y resolverVictoriaDefensiva se mantienen iguales) ...
 
-  if (accDefensiva === 'Entrada' && accOfensiva === 'Regate') atacanteLimitado = true;
-  if (accDefensiva === 'Intercepcion' && accOfensiva === 'Pase') atacanteLimitado = true;
-  if (accDefensiva === 'Bloqueo' && accOfensiva === 'Tiro') atacanteLimitado = true;
-
-  if (accOfensiva === 'Pase' && accDefensiva === 'Entrada') defensorLimitado = true;
-  if (accOfensiva === 'Tiro' && accDefensiva === 'Intercepcion') defensorLimitado = true;
-  if (accOfensiva === 'Regate' && accDefensiva === 'Bloqueo') defensorLimitado = true;
-
-  return { atacanteLimitado, defensorLimitado };
+function evaluarVentajaTactica(accOfe: AccionOfensiva, accDef: AccionDefensiva) {
+  return {
+    atacanteLimitado: (accDef === 'Entrada' && accOfe === 'Regate') || (accDef === 'Intercepcion' && accOfe === 'Pase') || (accDef === 'Bloqueo' && accOfe === 'Tiro'),
+    defensorLimitado: (accOfe === 'Pase' && accDef === 'Entrada') || (accOfe === 'Tiro' && accDef === 'Intercepcion') || (accOfe === 'Regate' && accDef === 'Bloqueo')
+  };
 }
 
-function resolverVictoriaDefensiva(accOfensiva: AccionOfensiva, accDefensiva: AccionDefensiva): string {
+function resolverVictoriaDefensiva(accOfe: AccionOfensiva, accDef: AccionDefensiva): string {
   const dado = Math.random() * 100;
-
-  if (accOfensiva === 'Regate' && accDefensiva === 'Entrada') return dado <= 95 ? 'Robo de balón' : 'Rebote';
-  if (accOfensiva === 'Pase' && accDefensiva === 'Entrada') return dado <= 40 ? 'Robo de balón' : 'Rebote';
-  if (accOfensiva === 'Tiro' && accDefensiva === 'Entrada') return dado <= 10 ? 'Robo de balón' : 'Rebote';
-  
-  if (accOfensiva === 'Regate' && accDefensiva === 'Intercepcion') return dado <= 25 ? 'Robo de balón' : 'Rebote';
-  if (accOfensiva === 'Pase' && accDefensiva === 'Intercepcion') return dado <= 85 ? 'Robo de balón' : 'Rebote';
-  if (accOfensiva === 'Tiro' && accDefensiva === 'Intercepcion') return dado <= 70 ? 'Robo de balón' : 'Rebote';
-  
-  if (accOfensiva === 'Regate' && accDefensiva === 'Bloqueo') return 'Pérdida de acción y repetición';
-  if (accOfensiva === 'Pase' && accDefensiva === 'Bloqueo') return dado <= 50 ? 'Robo de balón' : 'Rebote';
-  
-  if (accOfensiva === 'Tiro' && accDefensiva === 'Bloqueo') {
-    if (dado <= 10) return 'Robo de balón';
-    if (dado <= 90) return 'Rebote';
-    return 'Córner';
-  }
-
+  if (accOfe === 'Regate' && accDef === 'Entrada') return dado <= 95 ? 'Robo de balón' : 'Rebote';
+  if (accOfe === 'Pase' && accDef === 'Entrada') return dado <= 40 ? 'Robo de balón' : 'Rebote';
+  if (accOfe === 'Tiro' && accDef === 'Entrada') return dado <= 10 ? 'Robo de balón' : 'Rebote';
+  if (accOfe === 'Regate' && accDef === 'Intercepcion') return dado <= 25 ? 'Robo de balón' : 'Rebote';
+  if (accOfe === 'Pase' && accDef === 'Intercepcion') return dado <= 85 ? 'Robo de balón' : 'Rebote';
+  if (accOfe === 'Tiro' && accDef === 'Intercepcion') return dado <= 70 ? 'Robo de balón' : 'Rebote';
+  if (accOfe === 'Regate' && accDef === 'Bloqueo') return 'Pérdida de acción y repetición';
+  if (accOfe === 'Pase' && accDef === 'Bloqueo') return dado <= 50 ? 'Robo de balón' : 'Rebote';
+  if (accOfe === 'Tiro' && accDef === 'Bloqueo') return dado <= 10 ? 'Robo de balón' : (dado <= 90 ? 'Rebote' : 'Córner');
   return 'Robo de balón'; 
 }
 
+// ACTUALIZADO: Ahora recibe distancia (por defecto 1 para regates/choques directos)
 export function resolverDuelo(
-  atacante: JugadorPartido, 
-  accOfensiva: AccionOfensiva, 
-  defensor: JugadorPartido, 
-  accDefensiva: AccionDefensiva
+  atacante: JugadorPartido, accOfensiva: AccionOfensiva, 
+  defensor: JugadorPartido, accDefensiva: AccionDefensiva,
+  distancia: number = 1
 ): ResultadoDuelo {
-  
   const ventajas = evaluarVentajaTactica(accOfensiva, accDefensiva);
   
-  const poderOfensivo = calcularPoderOfensivo(atacante, accOfensiva, ventajas.atacanteLimitado);
-  const poderDefensivo = calcularPoderDefensivo(defensor, accDefensiva, ventajas.defensorLimitado);
+  // Pasamos la distancia al cálculo ofensivo
+  const pOfe = calcularPoderDetalladoOfensivo(atacante, accOfensiva, ventajas.atacanteLimitado, distancia);
+  const pDef = calcularPoderDetalladoDefensivo(defensor, accDefensiva, ventajas.defensorLimitado);
 
-  if (poderOfensivo >= poderDefensivo) {
-    return {
-      ganador: 'Atacante',
-      poderAtacante: poderOfensivo,
-      poderDefensor: poderDefensivo,
-      resolucion: '¡El atacante supera a la defensa y la jugada continúa!'
-    };
+  const detalles = {
+    baseAtacante: pOfe.base, suerteAtacante: pOfe.suerte, factorDistancia: pOfe.factorDistancia,
+    baseDefensor: pDef.base, suerteDefensor: pDef.suerte
+  };
+
+  if (pOfe.total >= pDef.total) {
+    return { ganador: 'Atacante', poderAtacante: pOfe.total, poderDefensor: pDef.total, resolucion: '¡El atacante supera a la defensa!', detalles };
   } else {
-    return {
-      ganador: 'Defensor',
-      poderAtacante: poderOfensivo,
-      poderDefensor: poderDefensivo,
-      resolucion: resolverVictoriaDefensiva(accOfensiva, accDefensiva)
-    };
+    return { ganador: 'Defensor', poderAtacante: pOfe.total, poderDefensor: pDef.total, resolucion: resolverVictoriaDefensiva(accOfensiva, accDefensiva), detalles };
   }
 }

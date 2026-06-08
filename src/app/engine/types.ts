@@ -1,6 +1,9 @@
 export type AccionOfensiva = 'Regate' | 'Pase' | 'Tiro';
 export type AccionDefensiva = 'Entrada' | 'Intercepcion' | 'Bloqueo';
 
+export type PosicionCarta = 'Portero' | 'Defensa' | 'Mediocampo' | 'Delantero';
+export type RarezaCarta = 'Normal' | 'Raro' | 'Epico' | 'Legendario' | 'Top Mundial';
+
 export interface Stats {
   tiro: number;
   regate: number;
@@ -15,19 +18,26 @@ export interface Posicion {
   y: number;
 }
 
-// Lo que viene del JSON
+// NUEVO: La carta base ahora soporta toda la info de tu Excel
 export interface CartaBase {
   id: string;
   nombre: string;
+  edicion: string;
+  posicion: PosicionCarta;
+  rareza: RarezaCarta;
   stats: Stats;
   energiaMaxima: number;
 }
 
-// Lo que vive solo en el partido
 export interface JugadorPartido extends CartaBase {
   equipo: 'Local' | 'Visitante';
   energiaActual: number;
   posicion: Posicion;
+}
+
+export interface DetallesCalculo {
+  baseAtacante: number; suerteAtacante: number; factorDistancia: number;
+  baseDefensor: number; suerteDefensor: number;
 }
 
 export interface ResultadoDuelo {
@@ -35,4 +45,5 @@ export interface ResultadoDuelo {
   poderAtacante: number;
   poderDefensor: number;
   resolucion: string;
+  detalles: DetallesCalculo;
 }
