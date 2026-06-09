@@ -18,7 +18,6 @@ export interface Posicion {
   y: number;
 }
 
-// NUEVO: La carta base ahora soporta toda la info de tu Excel
 export interface CartaBase {
   id: string;
   nombre: string;
@@ -29,7 +28,8 @@ export interface CartaBase {
   energiaMaxima: number;
 }
 
-export interface JugadorPartido extends CartaBase {
+// SOLUCIÓN ERROR 1: Omitimos "posicion" de la herencia para poder redefinirla como coordenada.
+export interface JugadorPartido extends Omit<CartaBase, 'posicion'> {
   equipo: 'Local' | 'Visitante';
   energiaActual: number;
   posicion: Posicion;
